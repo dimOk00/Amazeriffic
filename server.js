@@ -29,12 +29,15 @@ var express = require("express"),
 app.use(express.static(__dirname + "/client"));
 http.createServer(app).listen(3000); // этот маршрут замещает наш файл 
 // todos.json в примере из главы 5
-app.get("todos.json", function (req, res) {
-  res.json(toDos);
-});
+
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post("/todos", function (req, res) {
-  console.log("Данные были отправлены на сервер!"); // простой объект отправлен обратно  
+  var newToDo = req.body;
+  console.log(newToDo);
+  toDos.push(newToDo); // простой объект отправлен обратно  
   res.json({
     "message": "Вы размещаетесь на сервере!"
   });

@@ -82,25 +82,24 @@ var main = function (toDoObjects) {
 
                 $button.on("click", function () {
                     var description = $input.val(),
-                        tags = $tagInput.val().split(",");
-
-                    toDoObjects.push({
-                        "description": description,
-                        "tags": tags
+                        tags = $tagInput.val().split(","),
+                        // создаем новый элемент списка задач  
+                        newToDo = {
+                            "description": description,
+                            "tags": tags
+                        };
+                    $.post("todos", newToDo, function (result) {
+                        console.log(result);
+                        // нужно отправить новый объект на клиент   
+                        // после получения ответа сервера 
+                        toDoObjects.push(newToDo);
+                        // обновляем toDos   
+                        toDos = toDoObjects.map(function (toDo) {
+                            return toDo.description;
+                        });
+                        $input.val("");
+                        $tagInput.val("");
                     });
-
-                    $.post("todos", {}, function (response) {
-                        // этот обратный вызов выполняется при ответе сервера 
-                        console.log("Мы отправили данные и получили ответ сервера!");
-                        console.log(response);
-                    });
-                    // update toDos
-                    toDos = toDoObjects.map(function (toDo) {
-                        return toDo.description;
-                    });
-
-                    $input.val("");
-                    $tagInput.val("");
                 });
 
                 $content = $("<div>").append($inputLabel)
