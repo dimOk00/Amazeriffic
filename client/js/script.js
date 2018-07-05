@@ -89,6 +89,11 @@ var main = function (toDoObjects) {
                         "tags": tags
                     });
 
+                    $.post("todos", {}, function (response) {
+                        // этот обратный вызов выполняется при ответе сервера 
+                        console.log("Мы отправили данные и получили ответ сервера!");
+                        console.log(response);
+                    });
                     // update toDos
                     toDos = toDoObjects.map(function (toDo) {
                         return toDo.description;
