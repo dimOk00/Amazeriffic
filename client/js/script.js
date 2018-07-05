@@ -74,11 +74,11 @@ var main = function (toDoObjects) {
                 });
 
             } else if ($element.parent().is(":nth-child(4)")) {
-                var $input = $("<input>").addClass("description"),
-                    $inputLabel = $("<p>").text("Description: "),
+                var $inputLabel = $("<p>").text("Description: "),
                     $tagInput = $("<input>").addClass("tags"),
-                    $tagLabel = $("<p>").text("Tags: "),
-                    $button = $("<button>").text("+");
+                    $tagLabel = $("<p>").text("Tags: ");
+                $button = $("<button>").text("+");
+                $input = $("<input>").addClass("description");
 
                 $button.on("click", function () {
                     var description = $input.val(),
